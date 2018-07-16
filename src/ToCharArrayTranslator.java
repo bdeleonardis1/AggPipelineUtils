@@ -1,7 +1,7 @@
-import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
 
 public class ToCharArrayTranslator implements Translator {
-	public JsonObject translate(JsonObject obj) {
-		return obj;
+	public JsonElement translate(JsonElement e) {
+		return e;
 	}
 }

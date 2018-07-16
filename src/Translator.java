@@ -1,5 +1,5 @@
-import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
 
 public interface Translator {
-	JsonObject translate(JsonObject o);
+	JsonElement translate(JsonElement e);
 }
