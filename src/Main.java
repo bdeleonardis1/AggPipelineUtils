@@ -9,9 +9,11 @@ import com.google.gson.JsonParser;
 public class Main {
 
 	static final Map<String, Translator> translators = Map.of("$toCharArray", new ToCharArrayTranslator(),
-															  "$parseInt", new ParseIntTranslator());
+															  "$parseInt", new ParseIntTranslator(),
+															  "$toAscii", new ToAsciiTranslator());
 	static final Map<String, String> wrappers = Map.of("$toCharArray", "$map",
-													   "$parseInt", "$reduce");
+													   "$parseInt", "$reduce",
+														"$toAscii", "$switch");
 	
 	// [{$project: {integer: {$parseInt: "$num"}}}]
 

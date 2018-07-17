@@ -88,4 +88,20 @@ public class Utils {
 		multObject.add("$multiply", arr);
 		return multObject;
 	}
+	
+	public static JsonObject wrapInBranch(JsonElement switchCase, JsonElement then) {
+		JsonObject branch = new JsonObject();
+		branch.add("case", switchCase);
+		branch.add("then", then);
+		return branch;
+	}
+	
+	public static JsonObject wrapInEq(JsonElement left, JsonElement right) {
+		JsonArray eqArray = new JsonArray();
+		eqArray.add(left);
+		eqArray.add(right);
+		JsonObject eqObject = new JsonObject();
+		eqObject.add("eq", eqArray);
+		return eqObject;
+	}
 }
