@@ -8,8 +8,12 @@ import com.google.gson.JsonParser;
 
 public class Main {
 
-	static final Map<String, Translator> translators = Map.of("$toCharArray", new ToCharArrayTranslator());
-	static final Map<String, String> wrappers = Map.of("$toCharArray", "$map");
+	static final Map<String, Translator> translators = Map.of("$toCharArray", new ToCharArrayTranslator(),
+															  "$parseInt", new ParseIntTranslator());
+	static final Map<String, String> wrappers = Map.of("$toCharArray", "$map",
+													   "$parseInt", "$reduce");
+	
+	// [{$project: {integer: {$parseInt: "$num"}}}]
 
 	// REPL
 	public static void main(String[] args) {		

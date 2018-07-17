@@ -47,35 +47,45 @@ public class Utils {
 		return rangeObject;
 	}
 	
-	public static String difference(String str1, String str2) {
-	    if (str1 == null) {
-	        return str2;
-	    }
-	    if (str2 == null) {
-	        return str1;
-	    }
-	    int at = indexOfDifference(str1, str2);
-	    
-	    return str2.substring(at);
+	public static JsonObject wrapInSwitch(JsonArray branches) {
+		JsonObject branchesObject = new JsonObject();
+		branchesObject.add("branches", branches);
+		JsonObject switchObject = new JsonObject();
+		switchObject.add("$switch", branchesObject);
+		return switchObject;
 	}
-
-	public static int indexOfDifference(CharSequence cs1, CharSequence cs2) {
-	    if (cs1 == cs2) {
-	        //return INDEX_NOT_FOUND;
-	    }
-	    if (cs1 == null || cs2 == null) {
-	        return 0;
-	    }
-	    int i;
-	    for (i = 0; i < cs1.length() && i < cs2.length(); ++i) {
-	        if (cs1.charAt(i) != cs2.charAt(i)) {
-	            break;
-	        }
-	    }
-	    if (i < cs2.length() || i < cs1.length()) {
-	        return i;
-	    }
-	    //return INDEX_NOT_FOUND;
-	    return 0;
+	
+	public static JsonObject wrapInReduce(JsonElement input, int initialValue, JsonElement in) {
+		return wrapInReduce(input, new JsonPrimitive(initialValue), in);
+	}
+	
+	public static JsonObject wrapInReduce(JsonElement input, JsonElement initialValue, JsonElement in) {
+		JsonObject reduceValue = new JsonObject();
+		reduceValue.add("input", input);
+		reduceValue.add("initialValue", initialValue);
+		reduceValue.add("in", in);
+		JsonObject reduceRet = new JsonObject();
+		reduceRet.add("$reduce", reduceValue);
+		return reduceRet;
+	}
+	
+	public static JsonObject wrapInSum(JsonElement...elements) {
+		JsonArray arr = new JsonArray();
+		for (JsonElement element : elements) {
+			arr.add(element);
+		}
+		JsonObject sumObject = new JsonObject();
+		sumObject.add("$sum", arr);
+		return sumObject;
+	}
+	
+	public static JsonObject wrapInMult(JsonElement...elements) {
+		JsonArray arr = new JsonArray();
+		for (JsonElement element : elements) {
+			arr.add(element);
+		}
+		JsonObject multObject = new JsonObject();
+		multObject.add("$multiply", arr);
+		return multObject;
 	}
 }
