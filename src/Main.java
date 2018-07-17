@@ -13,12 +13,17 @@ public class Main {
 	static final Map<String, String> wrappers = Map.of("$toCharArray", "$map");
 
 	public static void main(String[] args) {
-		// Get pipeline as string
-		String inputPipeline = "[{$project:{charArr: {$toCharArray: \"$num\"}}}]";
-		JsonArray pipeline = parseString(inputPipeline);
-		JsonArray translatedPipeline = translateJsonArray(pipeline);
-		// Output pipeline
-		System.out.println(translatedPipeline);
+		try {
+			// Get pipeline as string
+			String inputPipeline = "[{$project:{charArr: {$toCharArray: \"$num\"}}}]";
+			JsonArray pipeline = parseString(inputPipeline);
+			JsonArray translatedPipeline = translateJsonArray(pipeline);
+			// Output pipeline
+			System.out.println(translatedPipeline);
+		} catch (Exception e) {
+			
+		}
+		
 	}
 	
 	public static JsonArray parseString(String pipeline) {
