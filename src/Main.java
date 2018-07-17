@@ -9,11 +9,12 @@ import com.google.gson.JsonParser;
 
 public class Main {
 	
-	static final Map<String, Translator> translators = Map.of("toCharArray", new ToCharArrayTranslator());
+	static final Map<String, Translator> translators = Map.of("$toCharArray", new ToCharArrayTranslator());
+	static final Map<String, String> wrappers = Map.of("$toCharArray", "$map");
 
 	public static void main(String[] args) {
 		// Get pipeline as string
-		String inputPipeline = "[{$project:{charArr:{$sum:[0, 1, {strLenCP: Hello}]}}}]";
+		String inputPipeline = "[{$project:{charArr: {$toCharArray: \"$num\"}}}]";
 		JsonArray pipeline = parseString(inputPipeline);
 		JsonArray translatedPipeline = translateJsonArray(pipeline);
 		// Output pipeline
@@ -39,9 +40,9 @@ public class Main {
 		for (Map.Entry<String, JsonElement> element : obj.entrySet()) {
 			String key = element.getKey();
 			JsonElement val = element.getValue();
-			if (translators.containsKey(element.getKey())) {
-				JsonElement specialTranslation = translators.get(key).translate(val);
-				translatedObject.add(element.getKey(), specialTranslation);
+			if (translators.containsKey(key)) {
+				JsonObject specialTranslation = translators.get(key).translate(val);
+				translatedObject.add(wrappers.get(key), specialTranslation.get(wrappers.get(key)));
 			} else {
 				translatedObject.add(key, translateJsonElement(val));
 			}
