@@ -10,10 +10,12 @@ public class Main {
 
 	static final Map<String, Translator> translators = Map.of("$toCharArray", new ToCharArrayTranslator(),
 															  "$parseInt", new ParseIntTranslator(),
-															  "$toAscii", new ToAsciiTranslator());
+															  "$toAscii", new ToAsciiTranslator(),
+															  "$switchToCond", new SwitchToCondTranslator()); 	
 	static final Map<String, String> wrappers = Map.of("$toCharArray", "$map",
 													   "$parseInt", "$reduce",
-														"$toAscii", "$switch");
+													   "$toAscii", "$switch",
+													   "$switchToCond", "$cond");
 	
 	// [{$project: {integer: {$parseInt: "$num"}}}]
 

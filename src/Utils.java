@@ -101,7 +101,16 @@ public class Utils {
 		eqArray.add(left);
 		eqArray.add(right);
 		JsonObject eqObject = new JsonObject();
-		eqObject.add("eq", eqArray);
+		eqObject.add("$eq", eqArray);
 		return eqObject;
+	}
+	
+	public static JsonObject wrapInCond(JsonElement cond, JsonElement trueCase) {
+		JsonObject condValue = new JsonObject();
+		condValue.add("if", cond);
+		condValue.add("then", trueCase);
+		JsonObject condObject = new JsonObject();
+		condObject.add("$cond", condValue);
+		return condObject;
 	}
 }
