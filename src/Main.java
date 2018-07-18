@@ -18,6 +18,7 @@ public class Main {
 													   "$switchToCond", "$cond");
 	
 	// [{$project: {integer: {$parseInt: "$num"}}}]
+	// [{$project:{type:{$switchToCond:{$switch:{branches:[{case:{$lt:["$num",0]},then:"neg"},{case:{$gt:["$num",0]},then:"pos"},{case:{$eq:["$num",0]},then:"eq"}]}}}}}]
 
 	// REPL
 	public static void main(String[] args) {		
